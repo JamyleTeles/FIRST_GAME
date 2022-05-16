@@ -1,0 +1,307 @@
+PImage imgPE, imgPA, imgT, imgL, imgS, imgR, imgH, imgJ;
+int j, a, E0, E1, E2, E3, E4, i;
+float w, h;
+boolean aux, aux1;
+void setup () {
+  size (800, 800);
+  E0 = 0; //pedra
+  E1 = 1;// papel
+  E2 = 2;// tesoura
+  E3 = 3;// LAGARTO
+  E4 = 4;//SPOKE
+  i=0;
+  w= width;
+  h=height;
+  imgPE= loadImage ("PEDRA.png");
+  imgPA= loadImage ("PAPEL.png");
+  imgT= loadImage ("TESOURA.png");
+  imgL= loadImage ("LAGARTO.png");
+  imgS= loadImage ("SPOCK.png");
+  imgR= loadImage ("RESET.png");
+  imgH= loadImage ("HOME.png");
+  imgJ= loadImage ("REGRAS.jpg");
+}
+void draw () {
+  if (aux) {
+  } else if (aux1){
+    background (#7cb490);
+    image (imgJ, 0, 0, w, h);
+    image (imgH, 0.812*w, 0.031*h, 0.062*w, 0.062*h);
+     if (mousePressed && mouseX >= 650 && mouseX <= 700 && mouseY >= 25 && mouseY <= 75) {
+      background (#7cb490);  
+      menu();
+      aux1=false;
+      println ("home");
+      }
+  }else {
+    menu();
+  }
+}
+void mousePressed () {
+  a=int(random(0, 4)); //adversário
+  //botão novo jogo
+  fill (#ede3fb);
+  if (mouseX >= 300 && mouseX <= 500 && mouseY >= 400 && mouseY <= 500) {
+    println (mouseX, mouseY);
+    i=1;
+    println("liberou o jogo");
+    aux=true; 
+  }
+  //botão regras do jogo
+    if (mouseX >= 250 && mouseX <= 550 && mouseY >= 550 && mouseY <= 650) {
+      background (#7cb490);
+      image (imgJ, 0, 0, w, h);
+      println ("regras do jogo");
+      aux=false;
+      aux1=true;
+    }
+  if (i==1) {
+    noStroke();
+    background (#7cb490);
+    fill(#fff2af);
+    ellipse (0.375*w, 0.125*h, 0.125*w, 0.125*h);
+    image (imgPE, 255, 60, 90, 80);
+    ellipse (0.625*w, 0.125*h, 0.125*w, 0.125*h);
+    image (imgPA, 455, 60, 85, 80);
+    ellipse(0.25*w, 0.312*h, 0.125*w, 0.125*h);
+    image (imgT, 160, 205, 80, 75);
+    ellipse(0.5*w, 0.312*h, 0.125*w, 0.125*h);
+    image (imgL, 350, 205, 0.125*w, 0.125*h);
+    ellipse(0.75*w, 0.312*h, 0.125*w, 0.125*h);
+    image (imgS, 560, 205, 80, 90);
+    fill (#ede3fb);
+    if (mouseX >= 0.312*w && mouseX <= 0.437*w && mouseY >= 0.062*h && mouseY <= 0.187*h) {//esse if tá dentro do if(i==1) e começa a análise de todas as condições
+      textSize (20);
+      text ("VOCÊ ESCOLHEU A PEDRA", 50, 700);
+      image (imgPE, 100, 500, 150, 150);
+      j= E0;
+      logica();
+    } else if (mouseX >= 0.562*w && mouseX <= 0.687*w && mouseY >= 0.062*h && mouseY <= 0.187*h) {
+      textSize (20);
+      text ("VOCÊ ESCOLHEU O PAPEL", 50, 700);
+      image (imgPA, 100, 500, 150, 150);
+      j= E1;
+      logica();
+    } else if (mouseX >= 0.187*w && mouseX <= 0.312*w && mouseY >= 0.25*h && mouseY <= 0.375*h) {
+      textSize (20);
+      text("VOCÊ ESCOLHEU A TESOURA", 50, 700);
+      image (imgT, 100, 500, 150, 150);
+      j= E2;
+      logica();
+    } else if (mouseX >= 0.437*w && mouseX <= 0.562*w && mouseY >= 0.25*h && mouseY <= 0.375*h) {
+      textSize (20);
+      text ("VOCÊ ESCOLHEU O LAGARTO", 50, 700);
+      image (imgL, 100, 500, 150, 150);
+      j= E3;
+      logica();
+    } else if (mouseX >= 0.687*w && mouseX <= 0.812*w && mouseY >= 0.25*h && mouseY <= 0.375*h) {
+      textSize (20);
+      text ("VOCÊ ESCOLHEU O SPOCK", 50, 700);
+      image (imgS, 100, 500, 150, 150);
+      j= E4;
+      logica();
+    }
+  }
+  if (i==2) {
+    //botão reset
+    circle (750, 50, 50);
+    image (imgR, 725, 25, 50, 50);
+    image (imgH, 650, 25, 50, 50);
+    if (mouseX >=675 && mouseX<=800 && mouseY >= 20 && mouseY <= 100) {//aqui começa o reset e o bloco de desenho que vai "resetar" o que aconteceu anteriormente
+      println ("liberou o jogo2");
+      background (#7cb490);
+      noStroke();
+      fill(#fff2af);
+      ellipse (0.375*w, 0.125*h, 0.125*w, 0.125*h);
+      image (imgPE, 255, 60, 90, 80);
+      ellipse (0.625*w, 0.125*h, 0.125*w, 0.125*h);
+      image (imgPA, 455, 60, 85, 80);
+      ellipse(0.25*w, 0.312*h, 0.125*w, 0.125*h);
+      image (imgT, 160, 205, 80, 75);
+      ellipse(0.5*w, 0.312*h, 0.125*w, 0.125*h);
+      image (imgL, 350, 205, 0.125*w, 0.125*h);
+      ellipse(0.75*w, 0.312*h, 0.125*w, 0.125*h);
+      image (imgS, 560, 205, 80, 90);
+      i=1;
+      println (mouseX, mouseY);
+    }
+    if (mouseX >= 650 && mouseX <= 700 && mouseY >= 25 && mouseY <= 75) {
+      menu();
+    }
+  }
+}
+void menu() {
+  noStroke();
+  background(#7cb490);
+  fill(#fff2af);
+  ellipse (0.375*w, 0.125*h, 0.125*w, 0.125*h);
+  image (imgPE, 255, 60, 90, 80);
+  ellipse (0.625*w, 0.125*h, 0.125*w, 0.125*h);
+  image (imgPA, 455, 60, 85, 80);
+  ellipse(0.25*w, 0.312*h, 0.125*w, 0.125*h);
+  image (imgT, 160, 205, 80, 75);
+  ellipse(0.5*w, 0.312*h, 0.125*w, 0.125*h);
+  image (imgL, 350, 205, 0.125*w, 0.125*h);
+  ellipse(0.75*w, 0.312*h, 0.125*w, 0.125*h);
+  image (imgS, 560, 205, 80, 90);
+  rect (300, 400, 200, 75, 50); //novo_jogo
+  rect (250, 550, 300, 75, 50); //regras_jogo
+  fill (0);
+  textSize (30);
+  text ("NOVO JOGO", 320, 450);
+  text ("REGRAS DO JOGO", 280, 600);
+  
+}
+void logica() {
+  fill (#ede3fb);
+  switch (a) {
+  case 0:
+    textSize(20);
+    text ("O SEU ADVERSÁRIO ESCOLHEU A PEDRA", 400, 700);
+    image(imgPE, 500, 500, 150, 150);
+    break;
+  case 1:
+    textSize(20);
+    text ("O SEU ADVERSÁRIO ESCOLHEU O PAPEL", 400, 700);
+    image(imgPA, 500, 500, 150, 150);
+    break;
+  case 2:
+    textSize(20);
+    text ("O SEU ADVERSÁRIO ESCOLHEU A TESOURA", 400, 700);
+    image(imgT, 500, 500, 150, 150);
+    break;
+  case 3:
+    textSize(20);
+    text ("O SEU ADVERSÁRIO ESCOLHEU O LAGARTO", 400, 700);
+    image(imgL, 500, 500, 150, 150);
+    break;
+  case 4:
+    textSize(20);
+    text ("O SEU ADVERSÁRIO ESCOLHEU O SPOCK", 400, 700);
+    image(imgS, 500, 500, 150, 150);
+    break;
+  }
+  fill (#bafdc2);
+  if (j==0) {
+    switch (a) {
+    case 0:
+      textSize (30);
+      text ("EMPATE!!!", 325, 450);
+      break;
+    case 1:
+      textSize (30);
+      text ("VOCÊ PERDEU! O PAPEL COBRE A PEDRA :(", 125, 450);
+      break;
+    case 2:
+      textSize (30);
+      text ("VOCÊ GANHOU! A PEDRA QUEBRA A TESOURA :)", 125, 450);
+      break;
+    case 3:
+      textSize (30);
+      text ("VOCÊ GANHOU! A PEDRA ESMAGA O LAGARTO :)", 125, 450);
+      break;
+    case 4:
+      textSize (30);
+      text ("VOCÊ PERDEU! O SPOCK VAPORIZA A PEDRA :(", 125, 450);
+      break;
+    }
+  }
+  if (j==1) {
+    switch (a) {
+    case 0:
+      textSize (30);
+      text ("VOCÊ GANHOU! PAPEL COBRE A PEDRA :)", 125, 450);
+      break;
+    case 1:
+      textSize (30);
+      text ("EMPATE!!!", 325, 450);
+      break;
+    case 2:
+      textSize (30);
+      text ("VOCÊ PERDEU! A TESOURA CORTA O PAPEL :(", 125, 450);
+      break;
+    case 3:
+      textSize (30);
+      text ("VOCÊ PERDEU! O LAGARTO COME O PAPEL :(", 125, 450);
+      break;
+    case 4:
+      textSize (30);
+      text ("VOCÊ GANHOU! O PAPEL REFUTA O SPOCK :(", 125, 450);
+      break;
+    }
+  }
+  if (j==2) {
+    switch (a) {
+    case 0:
+      textSize (30);
+      text ("VOCÊ PERDEU! A PEDRA QUEBRA A TESOURA :(", 125, 450);
+      break;
+    case 1:
+      textSize (30);
+      text ("VOCÊ GANHOU! A TESOURA CORTA O PAPEL :)", 125, 450);
+      break;
+    case 2:
+      textSize (30);
+      text ("EMPATE!!!", 325, 450);
+      break;
+    case 3:
+      textSize (30);
+      text ("VOCÊ GANHOU! A TESOURA MATA O LAGARTO :)", 125, 450);
+      break;
+    case 4:
+      textSize (30);
+      text ("VOCÊ PERDEU! O SPOCK QUEBRA A TESOURA :(", 125, 450);
+      break;
+    }
+  }
+  if (j==3) {
+    switch (a) {
+    case 0:
+      textSize (30);
+      text ("VOCÊ PERDEU! A PEDRA ESMAGA O LAGARTO :(", 125, 450);
+      break;
+    case 1:
+      textSize (30);
+      text ("VOCÊ GANHOU! O LAGARTO COME O PAPEL :)", 125, 450);
+      break;
+    case 2:
+      textSize (30);
+      text ("VOCÊ PERDEU! A TESOURA MATA O LAGARTO :(", 125, 450);
+      break;
+    case 3:
+      textSize (30);
+      text ("EMPATE!!!", 325, 450);
+      break;
+    case 4:
+      textSize (30);
+      text ("VOCÊ GANHOU! O LAGARTO ENVENENA SPOCK :)", 125, 450);
+      break;
+    }
+  }
+  if (j==4) {
+    switch (a) {
+    case 0:
+      textSize (30);
+      text ("VOCÊ GANHOU! O SPOCK VAPORIZA A PEDRA :)", 125, 450);
+      break;
+    case 1:
+      textSize (30);
+      text ("VOCÊ PERDEU! O PAPEL REFUTA SPOCK :(", 125, 450);
+      break;
+    case 2:
+      textSize (30);
+      text ("VOCÊ GANHOU! O SPOCK QUEBRA A TESOURA :)", 125, 450);
+      break;
+    case 3:
+      textSize (30);
+      text ("VOCÊ PERDEU! O LAGARTO ENVENENA SPOCK :(", 125, 450);
+      break;
+    case 4:
+      textSize (30);
+      text ("EMPATE!!!", 325, 450);
+      break;
+    }
+  }
+  i=2;
+}
+
